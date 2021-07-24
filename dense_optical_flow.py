@@ -24,7 +24,7 @@ fb_params = dict(
     flags = 0
 )
 
-ret, first_framse = cap.read()
+ret, first_frame = cap.read()
 first_frame = cv.resize(first_frame, (960, 540))
 # Converts frame to grayscale because we
 # only need the luminance channel for
