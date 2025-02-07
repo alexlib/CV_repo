@@ -1,5 +1,8 @@
 import cv2 as cv
 import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
+matplotlib.use('TkAgg')
   
 # The video feed is read in as
 # a VideoCapture object
@@ -39,6 +42,9 @@ mask: np.ndarray = np.zeros_like(first_frame)
   
 # Sets image saturation to maximum
 mask[..., 1] = 255
+
+fig, ax = plt.subplots()
+
 while(cap.isOpened()):
       
     # ret = a boolean return value from getting
@@ -48,7 +54,10 @@ while(cap.isOpened()):
     frame = cv.resize(frame, (960, 540)) 
     # Opens a new window and displays the input
     # frame
-    cv.imshow("input", frame)
+    # cv.imshow("input", frame)
+    ax.imshow(frame)
+    
+
       
     # Converts each frame to grayscale - we previously 
     # only converted the first frame to grayscale
@@ -72,7 +81,8 @@ while(cap.isOpened()):
     rgb: np.ndarray = cv.cvtColor(mask, cv.COLOR_HSV2BGR)
 
     # Opens a new window and displays the output frame
-    cv.imshow("dense optical flow", rgb)
+    # cv.imshow("dense optical flow", rgb)
+    ax.imshow(rgb)
       
     # Updates previous frame
     prev_gray = gray
@@ -80,8 +90,8 @@ while(cap.isOpened()):
     # Frames are read by intervals of 1 millisecond. The
     # programs breaks out of the while loop when the
     # user presses the 'q' key
-    if cv.waitKey(1) & 0xFF == ord('q'):
-        break
+    # if cv.waitKey(1) & 0xFF == ord('q'):
+    #     break
   
 # The following frees up resources and
 # closes all windows
